@@ -28,7 +28,7 @@ class PtvoUartCluster(CustomCluster):
 
     def __init__(self, *args, **kwargs):
         """Init."""
-        _LOGGER.info("XXX - PtvoUartCluster - init")
+        _LOGGER.info("PtvoUartCluster - init")
 
         self._current_state = {}
         super().__init__(*args, **kwargs)
@@ -50,7 +50,7 @@ class PtvoMeteringCluster(LocalDataCluster, Metering):
 
     def __init__(self, *args, **kwargs):
         """Init."""
-        _LOGGER.info("XXX - PtvoUartCluster - init")
+        _LOGGER.info("PtvoMeteringCluster - init")
 
         super().__init__(*args, **kwargs)
         self.endpoint.device.consumption_bus.add_listener(self)
@@ -61,7 +61,7 @@ class PtvoMeteringCluster(LocalDataCluster, Metering):
 
     def consumption_reported(self, value):
         """Consumption reported."""
-        _LOGGER.info("XXX - PtvoMeteringCluster - consumption_reported")
+        _LOGGER.info("PtvoMeteringCluster - consumption_reported")
 
 
         self._update_attribute(self.CURRENT_SUMM_DELIVERED_ID, round(value * 1000))
@@ -74,7 +74,7 @@ class PtvoMeteringCluster(LocalDataCluster, Metering):
         dst_addressing: Optional[t.AddrMode] = None,
     ):
         """Handle incoming data."""
-        _LOGGER.info("XXX - PtvoMeteringCluster - handle_cluster_request: header: %s - args: [%s]",
+        _LOGGER.info("PtvoMeteringCluster - handle_cluster_request: header: %s - args: [%s]",
             hdr,
             args,
         )
@@ -88,7 +88,7 @@ class PtvoMeteringCluster(LocalDataCluster, Metering):
         ] = None,
     ):
         """Handle general cluster command."""
-        _LOGGER.info("XXX - PtvoMeteringCluster - handle_cluster_general_request: header: %s - args: [%s]",
+        _LOGGER.info("PtvoMeteringCluster - handle_cluster_general_request: header: %s - args: [%s]",
             hdr,
             args,
         )
@@ -99,7 +99,7 @@ class PtvoUartDevice(CustomDevice):
 
     def __init__(self, *args, **kwargs):
         """Init."""
-        _LOGGER.info("XXX - PtvoUartDevice - init")
+        _LOGGER.info("PtvoUartDevice - init")
         super().__init__(*args, **kwargs)
 
 
