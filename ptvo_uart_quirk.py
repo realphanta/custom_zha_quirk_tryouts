@@ -31,7 +31,19 @@ class PtvoUartCluster(CustomCluster):
         _LOGGER.info("PtvoUartCluster - init")
 
         self._current_state = {}
-        super().__init__(*args, **kwargs)
+
+    def handle_cluster_request(
+        self,
+        hdr: foundation.ZCLHeader,
+        args: List[Any],
+        *,
+        dst_addressing: Optional[t.AddrMode] = None,
+    ):
+        """Handle incoming data."""
+        _LOGGER.info("PtvoMeteringCluster - handle_cluster_request: header: %s - args: [%s]",
+            hdr,
+            args,
+        )
 
 
 class PtvoMeteringCluster(LocalDataCluster, Metering):
@@ -52,7 +64,6 @@ class PtvoMeteringCluster(LocalDataCluster, Metering):
         """Init."""
         _LOGGER.info("PtvoMeteringCluster - init")
 
-        super().__init__(*args, **kwargs)
         self.endpoint.device.consumption_bus.add_listener(self)
 
         # put a default value so the sensor is created
@@ -100,7 +111,6 @@ class PtvoUartDevice(CustomDevice):
     def __init__(self, *args, **kwargs):
         """Init."""
         _LOGGER.info("PtvoUartDevice - init")
-        super().__init__(*args, **kwargs)
 
 
     signature = {
@@ -131,7 +141,7 @@ class PtvoUartDevice(CustomDevice):
                     Basic.cluster_id,
                     Identify.cluster_id,
                     PtvoMeteringCluster,
-                    PtvoUartCluster.cluster_id,
+                    PtvoUartCluster.cluster_id, im
                 ],
                 OUTPUT_CLUSTERS: [],
             },
